@@ -1,5 +1,121 @@
 <!doctype html>
 <html>
-    <head></head>
-    <body></body>
+    <head>
+       <meta charset="utf-8">
+        <title>FEWD2-Assignment6</title>
+        <link href="Assignment6.css" type="text/css" rel="stylesheet"/>
+        <script src="Assignment6.js"></script>
+    </head>
+    <body>
+        <scetion id="status">
+            <h2>Status</h2>
+            <ul>
+                <li>Delivery Location</li>
+                <li>Build Your Order</li>
+                <li>Billing Information</li>
+            </ul>
+        </scetion>
+        
+        <section id="location">
+            <h2>Delivery Location</h2>
+            <hr/>
+            <ul>
+<form id="form1">
+                <li>name</li>
+                <li><input id="uname" type="text"  ></li>
+                <li>address type</li>
+                <li>
+                    <select id="addtype">
+                        <option>house</option>
+                        <option>apartment</option>
+                        <option>business</option>
+                        <option>campus</option>
+                        <option>hotel</option>
+                        <option>dorm</option>
+                        <option>other</option>
+                    </select>
+                    <input type="text" id="addtypetext"/>
+                </li>
+                <li>street address</li>
+                <li><input name="address" type="text"  ></li>
+                <li>number</li>
+                <li><input name="number" type="text"   type="number"></li>
+                <li>city</li>
+                <li><input name="city" type="text"  ></li>
+                <li>state</li>
+                <li><input name="state" type="text"  ></li>
+                <li>zip code</li>
+                <li><input name="zipcode" type="text"  ></li>
+                <li>phone number</li>
+                <li><input name="phone" type="text"  ></li>
+                <li>email</li>
+                <li><input name="email" type="text"  ></li>
+                </form>
+            </ul>
+            <button id="btnlocation">Next</button>
+        </section>
+        
+        <section id="order">
+            <h2>Build Your Order</h2>
+            <hr/>
+            <ul>
+                <li>dough options </li>
+                <li>
+                    <input name="dough" type="radio">a.	Hand Tossed </input>
+                    <input name="dough" type="radio">b.	Thin Crust </input>
+                    <input name="dough" type="radio">c.	New York Style</input>
+                    <input name="dough" type="radio">d.	Gluten Free</input>
+                </li>
+                <li>Select Size</li>
+                <li id="doughsize"></li>
+                <li>cheese options</li>
+                <li>
+                   <select >
+                        <option>a.	Light: no charge</option>
+                        <option>b.	Normal (default): no charge</option>
+                        <option>c.	Extra: +$2.99</option>
+                        <option>d.	Double: +$3.99</option>
+                    </select>
+                </li>
+                <li>Sauce Options</li>
+                <li>
+                    <select>
+                        <option>a.	Regular Tomato: no charge</option>
+                        <option>b.	Hearty Tomato: +$.99</option>
+                        <option>c.	BBQ Sauce: +$1.99</option>
+                    </select>
+                </li>
+                <li>Toppings</li>
+                <li>
+                    <input type=checkbox name="toppings">pepperoni</input>
+                    <input type=checkbox name="toppings">sausage</input>
+                    <input type=checkbox name="toppings"> ham</input>
+                    <input type=checkbox name="toppings"> bacon</input>
+                    <input type=checkbox name="toppings">salami</input>
+                    <input type=checkbox name="toppings">peppers</input>
+                    <input type=checkbox name="toppings">olives</input>
+                    <input type=checkbox name="toppings">jalapenos</input>
+                    <input type=checkbox name="toppings">mushrooms</input>
+                    <input type=checkbox name="toppings">pineapple</input>
+                    <input type=checkbox name="toppings">onion</input>
+                </li>
+            </ul>
+            
+            <button id="btnorder">Next</button>
+        </section>
+        
+        <section id="billing">
+            <h2>Billing Information</h2>
+            <hr/>
+            <button id="btnbilling">Next</button>
+        </section>
+        
+        <section id="invoice">
+            <h2>Invoice</h2>
+            <hr/>
+            <div>Your order is placed successfully.</div>
+            <button id="btninvoice">close</button>
+        </section>
+        
+    </body>
 </html>

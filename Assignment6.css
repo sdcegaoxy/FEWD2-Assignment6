@@ -1,0 +1,25 @@
+ul,li{
+    list-style: none;
+}
+
+section{
+    clear: both;
+    padding-top: 20px;
+}
+
+#status li{
+    float: left;
+    margin-right: 30px;
+}
+
+#location li{
+    float: left;
+    margin: 1%;
+}
+#location li:nth-child(odd){
+    width: 25%;
+}
+#location li:nth-child(even){
+    width: 70%;
+}
+
