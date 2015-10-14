@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", intilize, false);
 }
 
 function validation(){
+    var nameRegExp=/'[a-z]|[A-Z]'/g
     
     var obj=document.getElementById("uname");
     console.log("user name is "+ obj.value);
