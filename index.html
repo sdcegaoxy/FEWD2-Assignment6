@@ -10,13 +10,13 @@
         <scetion id="status">
             <h2>Status</h2>
             <ul>
-                <li>Delivery Location</li>
                 <li>Build Your Order</li>
                 <li>Billing Information</li>
+                <li>Invoice</li>
             </ul>
         </scetion>
         
-        <section id="location">
+        <section id="order">
             <h2>Delivery Location</h2>
             <hr/>
             <ul>
@@ -52,10 +52,9 @@
                 <li><input name="email" type="text"  ></li>
                 </form>
             </ul>
-            <button id="btnlocation">Next</button>
-        </section>
+            
         
-        <section id="order">
+        
             <h2>Build Your Order</h2>
             <hr/>
             <ul>
@@ -66,8 +65,14 @@
                     <input name="dough" type="radio">c.	New York Style</input>
                     <input name="dough" type="radio">d.	Gluten Free</input>
                 </li>
+
                 <li>Select Size</li>
-                <li id="doughsize"></li>
+                <li id="doughsize">
+                     <select >
+                        <option>001</option>
+                         
+                    </select>
+                </li>
                 <li>cheese options</li>
                 <li>
                    <select >

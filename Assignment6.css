@@ -7,19 +7,23 @@ section{
     padding-top: 20px;
 }
 
+button{
+    clear:both;
+}
+
 #status li{
     float: left;
     margin-right: 30px;
 }
 
-#location li{
+#order li{
     float: left;
     margin: 1%;
 }
-#location li:nth-child(odd){
+#order li:nth-child(odd){
     width: 25%;
 }
-#location li:nth-child(even){
+#order li:nth-child(even){
     width: 70%;
 }
 

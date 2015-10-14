@@ -1,8 +1,8 @@
 var stepInfo= new Map();
-stepInfo.set("location","order");
+
 stepInfo.set("order","billing");
 stepInfo.set("billing","invoice");
-stepInfo.set("invoice","location");
+stepInfo.set("invoice","order");
 
 document.addEventListener("DOMContentLoaded", intilize, false);
 
@@ -11,14 +11,11 @@ document.addEventListener("DOMContentLoaded", intilize, false);
  function intilize(){
      console.log("start app");
     //initlize view
-     document.getElementById("order").style.display="none";
      document.getElementById("billing").style.display="none";
      document.getElementById("invoice").style.display="none";
      document.getElementById("addtypetext").style.display="none";
      
     //initlize Mouse Event
-     var btnlocation=document.getElementById("btnlocation");
-     btnlocation.addEventListener("click",swap,false);
      
      var btnorder=document.getElementById("btnorder");
      btnorder.addEventListener("click",swap,false);
@@ -57,7 +54,6 @@ function swap(){
     console.log("current sectionId is "+ currSectionId);
     console.log("next sectionId is " + nextSectionId);
   if(validation()){ 
-     document.getElementById("location").style.display="none";
      document.getElementById("order").style.display="none";
      document.getElementById("billing").style.display="none";
      document.getElementById("invoice").style.display="none";
