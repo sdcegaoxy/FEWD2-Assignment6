@@ -60,12 +60,26 @@ document.addEventListener("DOMContentLoaded", intilize, false);
      sameasD.addEventListener("click",copyOrder2Bill,false);
      
      document.getElementById("expYear").innerHTML=genYear(10);
- 
+        
+     ValidateCreaditCard();
 }
 
 
 function ValidateCreaditCard(){
-    var cardNo=document.getElementById("cardNo").value;
+   // var cardNo=document.getElementById("cardNo").value;
+   var cardNo="4512113014643252";
+    cardNo=cardNo.trim();
+    cardNo=cardNo.replace("-","");
+    var cardNo_list=cardNo.split("");
+     var sum="";
+    for(var x in cardNo_list){ 
+        if(x%2==0){
+            sum=sum.concat(cardNo_list[x]*2);
+        }else{
+            sum=sum.concat(cardNo_list[x]);
+        }
+        console.log("x="+x+"||cardNo["+x+"]="+cardNo_list[x]+"||sum="+sum)
+    }
 }
 
 function genYear(numb){
