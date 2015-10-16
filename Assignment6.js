@@ -67,8 +67,8 @@ document.addEventListener("DOMContentLoaded", intilize, false);
 
 function ValidateCreaditCard(){
    // var cardNo=document.getElementById("cardNo").value;
-   var cardNo="4512113014643252";
-    cardNo=cardNo.trim();
+   var cardNo="451211301464 3252";
+    cardNo=cardNo.replace(" ","");
     cardNo=cardNo.replace("-","");
     var cardNo_list=cardNo.split("");
      var sum="";
