@@ -24,7 +24,7 @@ var Cards=[
     {"prefix":["37"],"cardtype":"American Express","CardNoLength":["15"]},
 ];
 
-var Obj_Card={};
+var Obj_Card={result:false};
 
 
 
@@ -46,8 +46,8 @@ document.addEventListener("DOMContentLoaded", intilize, false);
      var btnbilling=document.getElementById("btnbilling");
      btnbilling.addEventListener("click",finishBilling,false);
      
-     var invoice=document.getElementById("invoice");
-     btnbilling.addEventListener("click",showInvoice,false); 
+     var btninvoice=document.getElementById("btninvoice");
+     btninvoice.addEventListener("click",showInvoice,false); 
      
      var addtype=document.getElementById("addtype");
      addtype.addEventListener("change",addinput,false);
@@ -70,17 +70,16 @@ document.addEventListener("DOMContentLoaded", intilize, false);
      creaditinput.addEventListener("blur",showCreaditMsg,false);
         
     // validateLength("4512113014643252");
-     ValidateCreaditCard("451211301463252");
-     ValidateCreaditCard("5451984689482741");
+    // ValidateCreaditCard("451211301463252");
+    // ValidateCreaditCard("5451984689482741");
 }
 
-function showInvoice(){
-    swap("invoice");
-}
+
 function showCreaditMsg(){
     var cardno=document.getElementById("cardNo").value;
     console.log("creadit card number is "+cardno);
     var result=ValidateCreaditCard(cardno);
+    Obj_Card.result=result;
     console.log("creadit card validation result is "+ result);
     
     var msgtext="Your card is "+Obj_Card.cardtype+", and your card is ";
@@ -197,7 +196,13 @@ function finishBPiza(){
     
 }
 
+function showInvoice(){
+    document.getSelection("input[type='text']").value="";
+    swap("invoice");
+}
+
 function finishBilling(){
+    console.log("billing validate result =" + validation("billing"));
      if(validation("billing")){
          swap("billing");
     }
@@ -233,7 +238,7 @@ function validation(status){
      var mobileRegExp=/^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/g;
      var emailRegExp=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)/g;
         var stateRegExp=/[a-zA-Z]{2}/g;
-        var cvcRegExp=/\d{3}/g;
+        var cvcRegExp=/^\d{3}$/g;
         var result=true;
     
     if(status=="order"){
@@ -250,7 +255,6 @@ function validation(status){
         return result;
         
     }else if(status=="billing"){
-        console.log("billing validate ----------------------------------------------");
         if(result){result=doValidation("bname",nameRegExp,false)}else {return false;}
         console.log(result);
         if(result){result=doValidation("bstate",stateRegExp,true)}else {return false;}
@@ -263,6 +267,11 @@ function validation(status){
         console.log(result);
         if(result){result=doValidation("cvccode",cvcRegExp,true)}else {return false;}
         console.log(result);
+        if(result){
+            result=Obj_Card.result;
+            if(!result)document.getElementById("cardNo").focus();
+        }else {return false;}
+        
         return result;  
          
     }else if(status=="invoice"){
@@ -276,9 +285,7 @@ function validation(status){
 function doValidation(objID,regExp,expect){
     
     var objVal=document.getElementById(objID).value;
-    console.log(objID + " value is "+objVal+ " value length is "+objVal.length); 
-     
-    if(objVal.length>0&&objVal.match(regExp)==null&&expect==false){return true;}
+ if(objVal.length>0&&objVal.match(regExp)==null&&expect==false){return true;}
     if(objVal.length>0&&objVal.match(regExp)!=null&&expect==true){return true;}
     
     document.getElementById(objID).focus();
