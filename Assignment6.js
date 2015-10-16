@@ -3,12 +3,6 @@ stepInfo.set("order","billing");
 stepInfo.set("billing","invoice");
 stepInfo.set("invoice","order");
 
-//a.	If Hand Tossed Selected: Small ($9.99), Medium ($12.99), Large ($14.99) 
-//b.	If Thin Crust Selected: Medium ($11.99), Large ($13.99)
-//c.	If New York Style Selected: Large ($16.99), Extra Large ($19.99)
-//d.	If Gluten Free Selected: Small ($10.99)
-//
-
 var Doughs=[
     {"name":"Hand Tossed","types":[{"size":"Small","price":"9.99"},
                            {"size":"Mediu","price":"12.99"},
@@ -23,6 +17,14 @@ var Doughs=[
     {"name":"Gluten Free","types":[{"size":"Small","price":"10.99"}
                           ]}
 ];
+
+var Cards=[
+    {"prefix":["4"],"cardtype":"Visa","CardNoLength":["13","16"]},
+    {"prefix":["51","52","53","54","55"],"cardtype":"MasterCard","CardNoLength":["16"]},
+    {"prefix":["37"],"cardtype":"American Express","CardNoLength":["15"]},
+];
+
+var Obj_Card={};
 
 
 
@@ -41,8 +43,11 @@ document.addEventListener("DOMContentLoaded", intilize, false);
      var btnorder=document.getElementById("btnorder");
      btnorder.addEventListener("click",finishBPiza,false);
      
-     var btninvoice=document.getElementById("btninvoice");
-     btninvoice.addEventListener("click",finishBilling,false);
+     var btnbilling=document.getElementById("btnbilling");
+     btnbilling.addEventListener("click",finishBilling,false);
+     
+     var invoice=document.getElementById("invoice");
+     btnbilling.addEventListener("click",showInvoice,false); 
      
      var addtype=document.getElementById("addtype");
      addtype.addEventListener("change",addinput,false);
@@ -60,25 +65,97 @@ document.addEventListener("DOMContentLoaded", intilize, false);
      sameasD.addEventListener("click",copyOrder2Bill,false);
      
      document.getElementById("expYear").innerHTML=genYear(10);
+     
+     var creaditinput=document.getElementById("cardNo");
+     creaditinput.addEventListener("blur",showCreaditMsg,false);
         
-     ValidateCreaditCard();
+    // validateLength("4512113014643252");
+     ValidateCreaditCard("451211301463252");
+     ValidateCreaditCard("5451984689482741");
+}
+
+function showInvoice(){
+    swap("invoice");
+}
+function showCreaditMsg(){
+    var cardno=document.getElementById("cardNo").value;
+    console.log("creadit card number is "+cardno);
+    var result=ValidateCreaditCard(cardno);
+    console.log("creadit card validation result is "+ result);
+    
+    var msgtext="Your card is "+Obj_Card.cardtype+", and your card is ";
+    var surfix="";
+    if (result){surfix="valid";}else {surfix="invalid";}
+    
+    document.getElementById("cardNoMsg").innerHTML =msgtext+surfix;
 }
 
 
-function ValidateCreaditCard(){
+function ValidateCreaditCard(cardNo){
+    var result=true;
+    
+    if(result){result=validateLength(cardNo);}else{ return false;}
+    
+    if(result){result=validateLuhn(cardNo);}else{ return false;}
+    
+    if(result){return true;}else {return false;}
+}
+
+function validateLength(cardNo){
+    var result=false;
+    
+    //get card type and cardNo length
+    for (var x in Cards){
+        var cardrule=Cards[x];
+        for (var i in cardrule.prefix){
+            if(cardNo.indexOf(cardrule.prefix[i])==0){
+                console.log("card type is "+cardrule.cardtype);
+               Obj_Card.cardtype=cardrule.cardtype;
+               Obj_Card.validlength=cardrule.CardNoLength;
+            }
+        }
+    }
+    
+    for (var j in Obj_Card.validlength){
+        if(cardNo.length==Obj_Card.validlength[j]){
+            console.log("validateLength result is true");
+            return true;
+        }
+    }
+    console.log("validateLength result is false");
+    return false;
+}
+
+function validateLuhn(cardno){
    // var cardNo=document.getElementById("cardNo").value;
-   var cardNo="451211301464 3252";
-    cardNo=cardNo.replace(" ","");
-    cardNo=cardNo.replace("-","");
-    var cardNo_list=cardNo.split("");
-     var sum="";
+   // cardno="451211301464 3252";
+    cardno=cardno.replace(" ","");
+    cardno=cardno.replace("-","");
+    var cardNo_list=cardno.split("");
+    var newStr="";
+    var sum= 0;
     for(var x in cardNo_list){ 
         if(x%2==0){
-            sum=sum.concat(cardNo_list[x]*2);
+            newStr=newStr.concat(cardNo_list[x]*2);
         }else{
-            sum=sum.concat(cardNo_list[x]);
+            newStr=newStr.concat(cardNo_list[x]);
         }
-        console.log("x="+x+"||cardNo["+x+"]="+cardNo_list[x]+"||sum="+sum)
+      //  console.log("x="+x+"||cardNo["+x+"]="+cardNo_list[x]+"||sum="+newStr);
+    }
+    
+    for (var x in newStr){
+        sum +=parseInt(newStr[x]);
+    }
+    
+    console.log("final sum is "+sum);
+    
+    if(sum%10==0){
+        console.log("this card is valid, ValidateCreaditCard() will return true");
+        return true;
+    }
+    else{
+        console.log("this card is invalid, ValidateCreaditCard() will return false");
+        return false;
     }
 }
 
@@ -106,11 +183,10 @@ function copyOrder2Bill(){
         }
     }
     
-    document.getElementById("baddtype").value=
-        document.getElementById("baddtype").value;
-    
-    
-    
+    document.getElementById("baddtype").value=document.getElementById("addtype").value;
+    if(document.getElementById("addtype").value=="other"){
+        document.getElementById("baddtypetext").style.display="block";
+    }
 }
                               
 function finishBPiza(){
@@ -122,9 +198,10 @@ function finishBPiza(){
 }
 
 function finishBilling(){
+     if(validation("billing")){
+         swap("billing");
+    }
     
-    
-    swap("billing");
 }
 
 function showDoughPrice(){
@@ -151,45 +228,49 @@ function showDoughPrice(){
 }
 
 function validation(status){
-//     var nameRegExp=/\d/g;
-//     var zipRegExp=/(^\d{5}$)|(^\d{5}-\d{4}$)/g;
-//     var mobileRegExp=/^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/g;
-//     var emailRegExp=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)/g;
-//        var stateRegExp=/[a-zA-Z]{2}/g;
-//        var result=true;
-//    
-//    if(status=="order"){
-//        if(result){result=doValidation("name",nameRegExp,false)}else {return false;}
-//        console.log(result);
-//        if(result){result=doValidation("state",stateRegExp,true)}else {return false;}
-//        console.log(result);
-//        if(result){result=doValidation("zipcode",zipRegExp,true)}else {return false;}
-//        console.log(result);
-//        if(result){result=doValidation("phone",mobileRegExp,true)}else {return false;}
-//        console.log(result);
-//        if(result){result=doValidation("email",emailRegExp,true)}else {return false;}
-//        console.log(result);
-//        return result;
-//        
-//    }else if(status=="billing"){
-//        if(result){result=doValidation("bname",nameRegExp,false)}else {return false;}
-//        console.log(result);
-//        if(result){result=doValidation("bstate",stateRegExp,true)}else {return false;}
-//        console.log(result);
-//        if(result){result=doValidation("bzipcode",zipRegExp,true)}else {return false;}
-//        console.log(result);
-//        if(result){result=doValidation("bphone",mobileRegExp,true)}else {return false;}
-//        console.log(result);
-//        if(result){result=doValidation("bemail",emailRegExp,true)}else {return false;}
-//        console.log(result);
-//        return result;  
-//         
-//    }else if(status=="invoice"){
-//        return true;
-//    }
-//    
-////   return false;
-    return true;
+     var nameRegExp=/\d/g;
+     var zipRegExp=/(^\d{5}$)|(^\d{5}-\d{4}$)/g;
+     var mobileRegExp=/^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/g;
+     var emailRegExp=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)/g;
+        var stateRegExp=/[a-zA-Z]{2}/g;
+        var cvcRegExp=/\d{3}/g;
+        var result=true;
+    
+    if(status=="order"){
+        if(result){result=doValidation("name",nameRegExp,false)}else {return false;}
+        console.log(result);
+        if(result){result=doValidation("state",stateRegExp,true)}else {return false;}
+        console.log(result);
+        if(result){result=doValidation("zipcode",zipRegExp,true)}else {return false;}
+        console.log(result);
+        if(result){result=doValidation("phone",mobileRegExp,true)}else {return false;}
+        console.log(result);
+        if(result){result=doValidation("email",emailRegExp,true)}else {return false;}
+        console.log(result);
+        return result;
+        
+    }else if(status=="billing"){
+        console.log("billing validate ----------------------------------------------");
+        if(result){result=doValidation("bname",nameRegExp,false)}else {return false;}
+        console.log(result);
+        if(result){result=doValidation("bstate",stateRegExp,true)}else {return false;}
+        console.log(result);
+        if(result){result=doValidation("bzipcode",zipRegExp,true)}else {return false;}
+        console.log(result);
+        if(result){result=doValidation("bphone",mobileRegExp,true)}else {return false;}
+        console.log(result);
+        if(result){result=doValidation("bemail",emailRegExp,true)}else {return false;}
+        console.log(result);
+        if(result){result=doValidation("cvccode",cvcRegExp,true)}else {return false;}
+        console.log(result);
+        return result;  
+         
+    }else if(status=="invoice"){
+        return true;
+    }
+    
+    return false;
+    
 }
 
 function doValidation(objID,regExp,expect){
