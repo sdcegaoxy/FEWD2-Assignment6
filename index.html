@@ -22,34 +22,34 @@
             <ul>
 <form id="form1">
                 <li>name</li>
-                <li><input id="uname" type="text"  ></li>
+                <li><input id="name" type="text"  ></li>
                 <li>address type</li>
                 <li>
                     <select id="addtype">
-                        <option>house</option>
-                        <option>apartment</option>
-                        <option>business</option>
-                        <option>campus</option>
-                        <option>hotel</option>
-                        <option>dorm</option>
-                        <option>other</option>
+                          <option value="house">house</option>
+                        <option value="apartment">apartment</option>
+                        <option value="business">business</option>
+                        <option value="campus">campus</option>
+                        <option value="hotel">hotel</option>
+                        <option value="dorm">dorm</option>
+                        <option value="other">other</option>
                     </select>
-                    <input type="text" id="addtypetext"/>
+                    <input type="text" id="addtypetext" name="addtypetext"/>
                 </li>
                 <li>street address</li>
-                <li><input name="address" type="text"  ></li>
+                <li><input id="address" name="address" type="text"  ></li>
                 <li>number</li>
-                <li><input name="number" type="text"   type="number"></li>
+                <li><input id="number" name="number" type="text"   type="number"></li>
                 <li>city</li>
-                <li><input name="city" type="text"  ></li>
+                <li><input id="city" name="city" type="text"  ></li>
                 <li>state</li>
-                <li><input name="state" type="text"  ></li>
+                <li><input id="state" name="state" type="text"  ></li>
                 <li>zip code</li>
-                <li><input name="zipcode" type="text"  ></li>
+                <li><input id="zipcode" name="zipcode" type="text"  ></li>
                 <li>phone number</li>
-                <li><input name="phone" type="text"  ></li>
+                <li><input id="phone" name="phone" type="text"  ></li>
                 <li>email</li>
-                <li><input name="email" type="text"  ></li>
+                <li><input id="email" name="email" type="text"  ></li>
                 </form>
             </ul>
             
@@ -60,18 +60,15 @@
             <ul>
                 <li>dough options </li>
                 <li>
-                    <input name="dough" type="radio">a.	Hand Tossed </input>
-                    <input name="dough" type="radio">b.	Thin Crust </input>
-                    <input name="dough" type="radio">c.	New York Style</input>
-                    <input name="dough" type="radio">d.	Gluten Free</input>
+                    <input name="dough" type="radio" value="Hand Tossed" checked>a.	Hand Tossed </input>
+                    <input name="dough" type="radio" value="Thin Crust">b.	Thin Crust </input>
+                    <input name="dough" type="radio" value="New York Style">c.	New York Style</input>
+                    <input name="dough" type="radio" value="Gluten Free">d.	Gluten Free</input>
                 </li>
 
                 <li>Select Size</li>
                 <li id="doughsize">
-                     <select >
-                        <option>001</option>
-                         
-                    </select>
+                     <select><option>Small($9.99)</option><option >Mediu($12.99)</option><option >Large($14.99)</option></select>
                 </li>
                 <li>cheese options</li>
                 <li>
@@ -106,20 +103,80 @@
                 </li>
             </ul>
             
-            <button id="btnorder">Next</button>
+            <button id="btnorder">Finished Building Pizza</button>
         </section>
         
         <section id="billing">
             <h2>Billing Information</h2>
             <hr/>
-            <button id="btnbilling">Next</button>
+            <input id="sameasd" type="checkbox">Same as delivery information</input>
+            <ul>
+<form id="form1">
+                <li>name</li>
+                <li><input id="bname" type="text"  ></li>
+                <li>address type</li>
+                <li>
+                    <select id="baddtype">
+                        <option value="house">house</option>
+                        <option value="apartment">apartment</option>
+                        <option value="business">business</option>
+                        <option value="campus">campus</option>
+                        <option value="hotel">hotel</option>
+                        <option value="dorm">dorm</option>
+                        <option value="other">other</option>
+                    </select>
+                    <input type="text" id="baddtypetext" name="addtypetext"/>
+                </li>
+                <li>street address</li>
+                <li><input id="baddress" name="address" type="text"  ></li>
+                <li>number</li>
+                <li><input id="bnumber" name="number" type="text"   type="number"></li>
+                <li>city</li>
+                <li><input id="bcity" name="city" type="text"  ></li>
+                <li>state</li>
+                <li><input id="bstate" name="state" type="text"  ></li>
+                <li>zip code</li>
+                <li><input id="bzipcode" name="zipcode" type="text"  ></li>
+                <li>phone number</li>
+                <li><input id="bphone" name="phone" type="text"  ></li>
+                <li>email</li>
+                <li><input id="bemail" name="email" type="text"  ></li>
+                </form>
+            </ul>
+
+
+<h2>Creadit Card Information</h2>
+<hr>
+       <ul>
+           <li>Card Number</li>
+           <li><input id="cardNo" type="text"><span id="cardNomsg"></span></li>
+           <li>CVC code </li> 
+           <li><input id="cvscode" type="text"></li>
+           <li>Expiration Date </li>
+           <li>
+               <select id="expMonth">
+                   <option>1</option><option>2</option><option>3</option>
+                   <option>4</option><option>5</option><option>6</option>
+                   <option>7</option><option>8</option><option>9</option>
+                   <option>10</option><option>11</option><option>12</option>
+               </select>
+               /
+               <select id="expYear">
+               </select>
+           </li>
+           
+        </ul>   
+       
+           
+            
+            <button id="btnbilling">Place Order</button>
         </section>
         
         <section id="invoice">
             <h2>Invoice</h2>
             <hr/>
             <div>Your order is placed successfully.</div>
-            <button id="btninvoice">close</button>
+            <button id="btninvoice">Next Order</button>
         </section>
         
     </body>

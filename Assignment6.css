@@ -16,14 +16,16 @@ button{
     margin-right: 30px;
 }
 
-#order li{
+#order li, #billing li{
     float: left;
     margin: 1%;
 }
-#order li:nth-child(odd){
+#order li:nth-child(odd),
+#billing li:nth-child(odd){
     width: 25%;
 }
-#order li:nth-child(even){
+#order li:nth-child(even),
+#billing li:nth-child(even){
     width: 70%;
 }
 
